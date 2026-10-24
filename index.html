@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEFE · Núcleo de Estudantes da Faculdade de Economia · UEM</title>
+<meta name="description" content="Site oficial do Núcleo de Estudantes da Faculdade de Economia da Universidade Eduardo Mondlane: notícias, eventos, oportunidades e o Jornal da Semana.">
+<meta property="og:title" content="NEFE · Núcleo de Estudantes da Faculdade de Economia">
+<meta property="og:description" content="Notícias, eventos, oportunidades e o Jornal da Semana do NEFE-UEM.">
+<meta property="og:image" content="assets/img/logo-nefe.png">
+<meta name="theme-color" content="#0B5C2E">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/css/nefe.css">
+</head>
+<body>
+<div class="banda-demo" id="banda-demo" hidden><div class="dentro">Pré-visualização com conteúdos de exemplo. Os conteúdos reais aparecem depois de ligar o Supabase (ver o guia de instalação).</div></div>
+
+<header class="topo">
+  <div class="dentro">
+    <a class="marca" href="#/">
+      <img src="assets/img/logo-nefe.png" alt="NEFE · Núcleo de Estudantes da Faculdade de Economia" width="147" height="62">
+      <span class="separador" aria-hidden="true"></span>
+      <span class="inst"><b>Universidade Eduardo Mondlane</b>Faculdade de Economia</span>
+    </a>
+    <div class="accoes"><a class="btn" href="entrar.html">Área de membros</a></div>
+  </div>
+</header>
+
+<nav class="barra" aria-label="Menu principal">
+  <div class="dentro" id="menu">
+    <a href="#/" data-r="">Início</a>
+    <a href="#/noticias" data-r="noticias">Notícias</a>
+    <a href="#/agenda" data-r="agenda">Agenda</a>
+    <a href="#/oportunidades" data-r="oportunidades">Oportunidades</a>
+    <a href="#/jornal" data-r="jornal">Jornal da Semana</a>
+    <a href="#/sobre" data-r="sobre">Sobre o NEFE</a>
+  </div>
+</nav>
+
+<main class="dentro" id="conteudo"><div class="carregar">A carregar…</div></main>
+
+<footer class="rodape">
+  <div class="dentro">
+    <div>© <span id="ano">2026</span> NEFE · Universidade Eduardo Mondlane. Todos os direitos reservados.</div>
+    <div id="rodape-contacto"></div>
+  </div>
+</footer>
+
+<script src="assets/vendor/supabase.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/comum.js"></script>
+<script src="assets/js/publico.js"></script>
+</body>
+</html>

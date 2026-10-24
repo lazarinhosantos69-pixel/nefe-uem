@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Área de Membros · NEFE</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B5C2E">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/css/nefe.css">
+</head>
+<body class="entrada">
+<header class="topo">
+  <div class="dentro">
+    <a class="marca" href="index.html">
+      <img src="assets/img/logo-nefe.png" alt="NEFE · Núcleo de Estudantes da Faculdade de Economia" width="161" height="68">
+      <span class="separador" aria-hidden="true"></span>
+      <span class="inst"><b>Universidade Eduardo Mondlane</b>Faculdade de Economia</span>
+    </a>
+    <div class="accoes"><a class="btn btn-simples" href="index.html">← Voltar ao site</a></div>
+  </div>
+</header>
+<nav class="barra" aria-hidden="true"><div class="dentro"><a href="index.html" aria-current="page" tabindex="-1">Área de membros</a></div></nav>
+
+<main class="dentro">
+  <section class="cartao-entrada">
+    <h1>Entrar</h1>
+    <p class="ajuda">Reservado aos membros do NEFE. As contas são criadas pela Administração (Presidente, Vice-Presidente e Auditor Interno).</p>
+    <div id="nao-configurado" class="aviso-form" hidden>O site ainda não está ligado ao Supabase. Preencha <b>assets/js/config.js</b> conforme o guia de instalação. Entretanto, pode <a href="membros.html?demo=presidente">ver a pré-visualização da área de membros</a> com dados de exemplo.</div>
+    <form id="form-entrar" novalidate>
+      <div class="campo"><label for="email">Email</label><input type="email" id="email" autocomplete="username" required></div>
+      <div class="campo"><label for="senha">Senha</label><input type="password" id="senha" autocomplete="current-password" required></div>
+      <p id="erro" class="aviso-form" role="alert" hidden></p>
+      <button class="btn btn-pri" type="submit" id="botao">Entrar</button>
+      <p class="nota-pe" style="margin:4px 0 0">Esqueceu a senha? Peça a um administrador para a repor.</p>
+    </form>
+  </section>
+</main>
+
+<footer class="rodape"><div class="dentro"><div>© <span id="ano">2026</span> NEFE · Universidade Eduardo Mondlane.</div></div></footer>
+
+<script src="assets/vendor/supabase.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/comum.js"></script>
+<script>
+"use strict";
+(async () => {
+  NEFE.rodape();
+  const { sb, $ } = NEFE;
+  const form = $("#form-entrar"), erro = $("#erro"), botao = $("#botao");
+  const msg = new URLSearchParams(location.search).get("m");
+  if (msg === "inactivo") { erro.textContent = "Esta conta está desactivada ou sem perfil. Fale com a Administração."; erro.hidden = false; }
+  if (msg === "saiu") { erro.textContent = "Sessão terminada."; erro.className = "aviso-form ok"; erro.hidden = false; }
+  if (!sb) { $("#nao-configurado").hidden = false; botao.disabled = true; return; }
+  const { data } = await sb.auth.getSession();
+  if (data && data.session && msg !== "inactivo") { location.replace("membros.html"); return; }
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const email = $("#email").value.trim(), senha = $("#senha").value;
+    if (!email || !senha) { erro.textContent = "Indique o email e a senha."; erro.className = "aviso-form"; erro.hidden = false; return; }
+    botao.disabled = true; botao.textContent = "A entrar…"; erro.hidden = true;
+    const { error } = await sb.auth.signInWithPassword({ email, password: senha });
+    if (error) {
+      erro.textContent = NEFE.mensagemErro(error); erro.className = "aviso-form"; erro.hidden = false;
+      botao.disabled = false; botao.textContent = "Entrar";
+      return;
+    }
+    location.replace("membros.html");
+  });
+})();
+</script>
+</body>
+</html>
